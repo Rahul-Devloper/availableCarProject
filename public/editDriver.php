@@ -1,6 +1,25 @@
 <!-- include connection -->
 <?php include '../app/config/connection.php' ?>
 
+<!-- check if update button is clicked -->
+<?php
+if (isset($_POST['update'])) {
+    $userId = intval($_GET['id']);
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $phone_number = $_POST['phone_number'];
+    $postal_code = $_POST['postal_code'];
+
+    $sql = "UPDATE users SET first_name = '$first_name', last_name = '$last_name', email = '$email', phone_number = '$phone_number', postal_code = '$postal_code' WHERE user_id = $userId";
+    $result = $conn->query($sql);
+    if ($result) {
+        echo "User updated successfully";
+    } else {
+        echo "Error updating user: " . $conn->error;
+    }
+}
+?>
 <?php
 // Check if 'id' parameter exists in the URL
 if (isset($_GET['id'])) {
@@ -14,13 +33,6 @@ if (isset($_GET['id'])) {
     // Check if a user with the specified ID exists
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
-
-        // Display user details or use them as needed
-        echo 'User ID: ' . $user['user_id'] . '<br>';
-        echo 'Full Name: ' . $user['first_name'] . ' ' . $user['last_name'] . '<br>';
-        echo 'Email: ' . $user['email'] . '<br>';
-        echo 'Phone Number: ' . $user['phone_number'] . '<br>';
-        echo 'Created At: ' . $user['created_at'] . '<br>';
     } else {
         echo 'User not found.';
     }

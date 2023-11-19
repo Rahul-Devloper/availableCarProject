@@ -10,6 +10,7 @@ if (isset($_SESSION['email']) && isset($_SESSION['firstName']) && isset($_SESSIO
   $sessionLogin = true;
   $firstName = $_SESSION['firstName'];
 }
+echo $firstName;
 
 // finding the current page
 $currentPage = basename($_SERVER['PHP_SELF']);
@@ -62,22 +63,22 @@ $navLinkItems = [
 
             <!-- if user is logged in, navbar will show logout option else show sign in and sign up -->
       <div class="d-flex align-items-center justify-content-end btn-modification">
-      <?php if (isset($sessionLogin) && $sessionLogin == false || !isset($sessionLogin)) echo '<a class="btn btn-outline-primary btn-rounded mx-1" href="signIn.php">Sign In</a>
-        <a class="btn btn-outline-primary btn-rounded" href="signUp.php">Sign Up</a>'; 
-        
-        elseif (isset($sessionLogin) && $sessionLogin == true) echo '<div class="dropdown me-2">
-        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="bi bi-person-fill"></i> <?php echo $firstName ?>
-        </button>
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-          <!-- <a class="dropdown-item" href="#">Profile</a>
-    <a class="dropdown-item" href="#">Settings</a> -->
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="logout.php">Logout</a>
-        </div>
-      </div>';
-        
-        ?>
+      <?php 
+        if (isset($sessionLogin) && $sessionLogin == false || !isset($sessionLogin)) {
+            echo '<a class="btn btn-outline-primary btn-rounded mx-1" href="signIn.php">Sign In</a>';
+            echo '<a class="btn btn-outline-primary btn-rounded" href="signUp.php">Sign Up</a>';
+        } elseif (isset($sessionLogin) && $sessionLogin == true) {
+            echo '<div class="dropdown me-2">';
+            echo '<button class="btn btn-outline-primary dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+            echo '<i class="bi bi-person-fill"></i> ' . $firstName;
+            echo '</button>';
+            echo '<div class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">';
+            echo '<div class="dropdown-divider"></div>';
+            echo '<a class="dropdown-item" href="logout.php">Logout</a>';
+            echo '</div>';
+            echo '</div>';
+        }
+    ?>
 
         
 
