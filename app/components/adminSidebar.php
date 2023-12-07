@@ -5,9 +5,11 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
 // navLink Items
 $navLinkItems = [
-  'Profile' => 'ownerProfile.php',
-  'Dashboard' => 'ownerDashboard.php',
+  'Profile' => 'profile.php',
+  'Dashboard' => 'adminDashboard.php',
   'Cars' => 'cars.php',
+  'Drivers' => 'drivers.php',
+  'Owners' => 'owners.php',
 ];
 ?>
 

@@ -16,7 +16,7 @@
 <?php include '../app/components/navbar.php'; ?>
 
 <!-- include sidebar -->
-<?php include '../app/components/ownerSidebar.php'; ?>
+<?php include '../app/components/adminSidebar.php'; ?>
 
 
 <!-- include sidebar button -->
@@ -48,7 +48,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Owners</h5>
                     <p class="card-text">Lorem ipsum dolor sit amet.</p>
-                    <a href="#" class="card-link">View Owners</a>
+                    <a href="owners.php" class="card-link">View Owners</a>
                 </div>
             </div>
         </div>

@@ -5,6 +5,8 @@
   }
    unset($_SESSION["email"]);
    unset($_SESSION["password"]);
+   unset($_SESSION["firstName"]);
+   unset($_SESSION["adminSelectedUserId"]);
    
    header('Refresh: 2; URL = index.php');
 ?>

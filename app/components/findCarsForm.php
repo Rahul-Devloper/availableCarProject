@@ -1,8 +1,8 @@
-<form class="box-design">
+<form method="post" action="findCars.php" class="box-design">
     <div class="form-group row mb-3">
         <label for="location" class="col-sm-2 col-form-label">Location</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="location" placeholder="Enter location">
+            <input type="text" class="form-control" id="location" placeholder="Enter Postal Code">
         </div>
     </div>
     <div class="form-group row">
@@ -23,7 +23,8 @@
             <input type="time" class="form-control" id="time2">
         </div>
     </div>
-    <div class="d-flex justify-content-center btn-modification">
-        <a class="btn btn-rounded" href="#">Find Cars</a>
+    <!-- Submit button to add a car -->
+    <div class="col-12 btn-modification">
+        <button type="submit" name="find_car" class="btn btn-rounded">Find Car</button>
     </div>
 </form>

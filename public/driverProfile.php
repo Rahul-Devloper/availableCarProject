@@ -2,15 +2,17 @@
 <?php include '../app/config/connection.php' ?>
 
 <?php
-
-session_start();
-$role = $_SESSION['role'];
+    session_start();
+    $role = $_SESSION['role'];
+    $email = $_SESSION['email'];
+    $firstName = $_SESSION['firstName'];
+    $userId = $_SESSION['userId'];
 ?>
 
 <!-- check if update button is clicked -->
 <?php
-if (isset($_POST['update'])) {
-    $userId = intval($_GET['id']);
+if (isset($_POST['update']) && $userId) {
+    $userId = $userId;
     $first_name = $_POST['first_name'];
     $last_name = $_POST['last_name'];
     $email = $_POST['email'];
@@ -26,12 +28,15 @@ if (isset($_POST['update'])) {
     }
 }
 ?>
+
 <?php
+// start session to get email, firstname and role
+
 
 // Check if 'id' parameter exists in the URL
-if (isset($_GET['id'])) {
+if ($role && $email && $firstName) {
     // Sanitize the input to prevent SQL injection
-    $userId = intval($_GET['id']);
+    $userId = $userId;
 
     // Perform the SQL query to fetch the user with the specified ID
     $sql = "SELECT * FROM users WHERE user_id = $userId";
@@ -50,39 +55,19 @@ if (isset($_GET['id'])) {
 // Close the MySQL connection
 $conn->close();
 ?>
-<!-- include header -->
+
+
+<!-- header -->
 <?php include '../app/components/header.php'; ?>
-
-<!-- include navebar -->
-<?php include '../app/components/navbar.php'; ?>
-
-<!-- include sidebar using switch case based on role -->
+<!-- navbar -->
 <?php
-switch ($role) {
-    case 'admin':
-        include '../app/components/adminSidebar.php';
-        break;
-    case 'driver':
-        include '../app/components/driverSidebar.php';
-        break;
-    case 'owner':
-        include '../app/components/ownerSidebar.php';
-        break;
-}
-?>
+include '../app/components/navbar.php'; ?>
 
+<!-- sidebar -->
+<?php include '../app/components/driverSidebar.php'; ?>
 
-
-<!-- include sidebar button -->
+<!-- sidebar button -->
 <?php include '../app/components/sidebarButton.php'; ?>
-
-<!-- edit start -->
-<section class="my-5 px-3 container-fluid">
-    <h3 class="display-4">
-        Edit Driver
-    </h3>
-</section>
-<!-- edit end -->
 
 
 <!-- profile section -->
@@ -103,7 +88,7 @@ switch ($role) {
                     </h2>
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionParent">
                         <div class="accordion-body">
-                            <form action="editDriver.php?id=<?php echo $user['user_id']; ?>" method="POST">
+                            <form action="driverProfile.php" method="POST">
                                 <div class="container text-center">
                                     <div class="row g-2">
                                         <div class="col-6">
@@ -139,61 +124,29 @@ switch ($role) {
                         </div>
                         </form>
                     </div>
-
                 </div>
-                <?php if ($role === "driver") { //payment info will not be shown for admin
-                    // Display the accordion item for the driver role
-                ?>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                Payment Information
-                            </button>
-                        </h2>
-                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
-                            <div class="accordion-body">
-                                <button type="button" class="btn btn-primary btn-circle"><i style="font-size: x-large;" class="bi bi-plus"></i></button>
-                                <div class="card text-center mb-3 mx-auto" style="width: 80%;">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Payment Information</h5>
-                                        <p class="card-text">Card Number</p>
-                                        <a href="#" class="btn btn-outline-primary">Update</a>
-                                        <a href="#" class="btn btn-outline-danger">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php
-                } // end if
-                ?>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                            Bookings
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                            Payment Information
                         </button>
                     </h2>
-                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
                         <div class="accordion-body">
                             <button type="button" class="btn btn-primary btn-circle"><i style="font-size: x-large;" class="bi bi-plus"></i></button>
-
-                            <div class="card mx-auto mb-3" style="width: 80%; max-width: 540px;">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img src="../public/assets/img/car-sample.jpg" class="img-fluid rounded" alt="car-image">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Number of Bookings</h5>
-                                            <p class="card-text"><small class="text-body-secondary"><?php echo $firstName . "has done 0 bookings " ?></small></p>
-                                            <a href="#" class="btn btn-outline-primary">View Bookings</a>
-                                        </div>
-                                    </div>
+                            <div class="card text-center mb-3 mx-auto" style="width: 80%;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card Name</h5>
+                                    <p class="card-text">Card Number</p>
+                                    <a href="#" class="btn btn-outline-primary">Update</a>
+                                    <a href="#" class="btn btn-outline-danger">Delete</a>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
+                
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
@@ -257,5 +210,7 @@ switch ($role) {
 
 
 
+
 <!-- footer -->
-<?php include '../app/components/footer.php'; ?>
+<?php
+include '../app/components/footer.php'; ?>

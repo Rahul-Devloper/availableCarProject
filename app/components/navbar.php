@@ -10,6 +10,9 @@ if (isset($_SESSION['email']) && isset($_SESSION['firstName']) && isset($_SESSIO
   $sessionLogin = true;
   $firstName = $_SESSION['firstName'];
 }
+else if($sessionLogin == NULL || $sessionLogin == false) {
+  
+}
 echo $firstName;
 
 // finding the current page
@@ -23,10 +26,17 @@ $navLinkItems = [
   'About' => 'about.php',
   'Services' => 'services.php',
   'Contact' => 'contact.php',
-  'Find Cars' => 'findCars.php',
-  'Add Cars' => 'addCar.php',
 ];
-?>
+
+if( isset($_SESSION) && isset($_SESSION['role']) && $_SESSION['role'] == 'owner' || $_SESSION['role'] == 'admin') {
+  $navLinkItems = array_merge($navLinkItems, [
+    'Find Cars' => 'findCars.php',
+  ]);
+} else if( isset($_SESSION['role']) && $_SESSION['role'] == 'driver') {
+  $navLinkItems = array_merge($navLinkItems, [
+    'Find Cars' => 'findCars.php',
+  ]);
+}?>
 
 
 <nav class="navbar navbar-expand-lg justify-content-center nav-bg">

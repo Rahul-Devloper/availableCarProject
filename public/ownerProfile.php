@@ -1,3 +1,62 @@
+<!-- include connection -->
+<?php include '../app/config/connection.php' ?>
+
+<?php
+    session_start();
+    $role = $_SESSION['role'];
+    $email = $_SESSION['email'];
+    $firstName = $_SESSION['firstName'];
+    $userId = $_SESSION['userId'];
+?>
+
+<!-- check if update button is clicked -->
+<?php
+if (isset($_POST['update']) && $userId) {
+    $userId = $userId;
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $phone_number = $_POST['phone_number'];
+    $postal_code = $_POST['postal_code'];
+
+    $sql = "UPDATE users SET first_name = '$first_name', last_name = '$last_name', email = '$email', phone_number = '$phone_number', postal_code = '$postal_code' WHERE user_id = $userId";
+    $result = $conn->query($sql);
+    if ($result) {
+        echo "User updated successfully";
+    } else {
+        echo "Error updating user: " . $conn->error;
+    }
+}
+?>
+
+<?php
+// start session to get email, firstname and role
+
+
+// Check if 'id' parameter exists in the URL
+if ($role && $email && $firstName) {
+    // Sanitize the input to prevent SQL injection
+    $userId = $userId;
+
+    // Perform the SQL query to fetch the user with the specified ID
+    $sql = "SELECT * FROM users WHERE user_id = $userId";
+    $result = $conn->query($sql);
+
+    // Check if a user with the specified ID exists
+    if ($result->num_rows > 0) {
+        $user = $result->fetch_assoc();
+    } else {
+        echo 'User not found.';
+    }
+} else {
+    echo 'Invalid request. User ID not provided.';
+}
+
+// Close the MySQL connection
+$conn->close();
+?>
+
+
 <!-- header -->
 <?php include '../app/components/header.php'; ?>
 <!-- navbar -->
@@ -29,29 +88,41 @@ include '../app/components/navbar.php'; ?>
                     </h2>
                     <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionParent">
                         <div class="accordion-body">
-                            <div class="container text-center">
-                                <div class="row g-2">
-                                    <div class="col-6">
-                                        <div class="p-3">First Name: John</div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="p-3">Last Name: Doe</div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="p-3">Email: john@example.com</div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="p-3">Address: 123 Main St, Anytown USA</div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="p-3">City: Anytown</div>
-                                    </div>
-                                    <div class="col-6">
-                                        <div class="p-3">Postal Code: 12345</div>
+                            <form action="ownerProfile.php" method="POST">
+                                <div class="container text-center">
+                                    <div class="row g-2">
+                                        <div class="col-6">
+                                            <div class="p-3">First Name:
+                                                <input type="text" class="form-control" name="first_name" value="<?php echo $user['first_name']; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="p-3">Last Name:
+                                                <input type="text" class="form-control" name="last_name" value="<?php echo $user['last_name']; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="p-3">Email:
+                                                <input type="text" class="form-control" name="email" value="<?php echo $user['email']; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="p-3">Phone Number:
+                                                <input type="text" class="form-control" name="phone_number" value="<?php echo $user['phone_number']; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="p-3">Postal Code:
+                                                <input type="text" class="form-control" name="postal_code" value="<?php echo $user['postal_code']; ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 btn-modification d-flex">
+                                            <button type="submit" name="update" class="btn btn-rounded mx-auto">Update</button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
+                        </form>
                     </div>
                 </div>
                 <div class="accordion-item">
@@ -75,7 +146,7 @@ include '../app/components/navbar.php'; ?>
                         </div>
                     </div>
                 </div>
-                <div class="accordion-item">
+                <!-- <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
                             Cars
@@ -103,7 +174,7 @@ include '../app/components/navbar.php'; ?>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
@@ -146,10 +217,10 @@ include '../app/components/navbar.php'; ?>
             <hr class="w-50 mx-auto">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="text-right">Phone Number <br>123-456-789</p>
+                    <p class="text-right">Phone Number <br><?php echo $user['phone_number']; ?></p>
                 </div>
                 <div class="col-md-6">
-                    <p class="text-left">Email <br>example@email.com</p>
+                    <p class="text-left">Email <br><?php echo $user['email']; ?></p>
                 </div>
             </div>
             <div class="col-12 btn-modification d-flex">

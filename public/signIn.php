@@ -31,11 +31,13 @@ if (isset($_POST['signIn'])) {
     if ($result->num_rows > 0) {
         echo "Logged in successfully";
         $row = $result->fetch_assoc();
+        $userId = $row['user_id'];
         $role = $row['role'];
         $firstName = $row['first_name'];
         $_SESSION['role'] = $role;
         $_SESSION['email'] = $email;
         $_SESSION['firstName'] = $firstName;
+        $_SESSION['userId'] = $userId;
 
 
         if ($role == 'owner') {

@@ -5,18 +5,18 @@
 // Check if a search query is submitted
 if (isset($_GET['search'])) {
     $searchTerm = $_GET['search'];
-    $sql = "SELECT first_name, last_name, email, phone_number, created_at, user_id FROM users WHERE role = 'driver' AND first_name LIKE '%$searchTerm%'";
+    $sql = "SELECT first_name, last_name, email, phone_number, created_at, user_id FROM users WHERE role = 'owner' AND first_name LIKE '%$searchTerm%'";
 } else {
-    $sql = "SELECT first_name, last_name, email, phone_number, created_at, user_id FROM users WHERE role = 'driver'";
+    $sql = "SELECT first_name, last_name, email, phone_number, created_at, user_id FROM users WHERE role = 'owner'";
 }
 $result = $conn->query($sql);
 
 // Initialize an empty array to store the results
-$driverArray = [];
+$ownerArray = [];
 
 // Fetch all rows and store them in the array
 while ($row = $result->fetch_assoc()) {
-    $driverArray[] = [
+    $ownerArray[] = [
         'first_name' => $row['first_name'],
         'last_name' => $row['last_name'],
         'email' => $row['email'],
@@ -46,7 +46,7 @@ $conn->close();
 
 <section class="my-5 px-3 container-fluid">
     <h3 class="display-4">
-        Drivers
+        Owners
     </h3>
 </section>
 
@@ -58,13 +58,13 @@ $conn->close();
 </form>
 
 <?php
-if ($driverArray == []) {
-    echo '        <h4 class="display-4">No drivers found</h4>';
+if ($ownerArray == []) {
+    echo '        <h4 class="display-4">No Owners found</h4>';
 } else {
     echo '<section class="my-5 px-3 container-fluid">';
     echo '<div class="row row-cols-1 row-cols-md-3 g-4">';
 
-    foreach ($driverArray as $driver) {
+    foreach ($ownerArray as $owner) {
         echo '<div class="col">';
 
 
@@ -75,13 +75,13 @@ if ($driverArray == []) {
         echo '    </div>';
         echo '    <div class="col-md-8">';
         echo '      <div class="card-body">';
-        echo '        <h5 class="card-title">First Name: ' . htmlspecialchars($driver['first_name']) . '</h5>';
-        echo '        <h5 class="card-title">Last Name: ' . htmlspecialchars($driver['last_name']) . '</h5>';
-        echo '        <h5 class="card-title">Email: ' . htmlspecialchars($driver['email']) . '</h5>';
-        echo '        <p class="card-text"><small class="text-body-secondary">Joined on: ' . htmlspecialchars($driver['created_at']) . '</small></p>';
+        echo '        <h5 class="card-title">First Name: ' . htmlspecialchars($owner['first_name']) . '</h5>';
+        echo '        <h5 class="card-title">Last Name: ' . htmlspecialchars($owner['last_name']) . '</h5>';
+        echo '        <h5 class="card-title">Email: ' . htmlspecialchars($owner['email']) . '</h5>';
+        echo '        <p class="card-text"><small class="text-body-secondary">Joined on: ' . htmlspecialchars($owner['created_at']) . '</small></p>';
         echo '      </div>';
-        echo ' <a href="editDriver.php?id=' . $driver['user_id'] . '" class="btn btn-primary my-3 mx-auto">Edit</a>';
-        echo ' <a href="deleteDriver.php?id=' . $driver['user_id'] . '" class="btn btn-danger my-3 mx-auto">Delete</a>';
+        echo ' <a href="editOwner.php?id=' . $owner['user_id'] . '" class="btn btn-primary my-3 mx-auto">Edit</a>';
+        echo ' <a href="deleteOwner.php?id=' . $owner['user_id'] . '" class="btn btn-danger my-3 mx-auto">Delete</a>';
         echo '    </div>';
         echo '  </div>';
         echo '</div>';

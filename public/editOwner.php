@@ -7,6 +7,18 @@ session_start();
 $role = $_SESSION['role'];
 ?>
 
+<!-- check if adminSubmit is clicked -->
+<?php
+if (isset($_POST['adminSubmit'])) {
+//    store adminSelectedUserId in Session
+    $_SESSION['adminSelectedUserId'] = intval($_GET['id']);
+
+//    stop session
+    session_write_close();
+
+    header("Location: addCar.php");
+}?>
+
 <!-- check if update button is clicked -->
 <?php
 if (isset($_POST['update'])) {
@@ -27,7 +39,6 @@ if (isset($_POST['update'])) {
 }
 ?>
 <?php
-
 // Check if 'id' parameter exists in the URL
 if (isset($_GET['id'])) {
     // Sanitize the input to prevent SQL injection
@@ -56,21 +67,8 @@ $conn->close();
 <!-- include navebar -->
 <?php include '../app/components/navbar.php'; ?>
 
-<!-- include sidebar using switch case based on role -->
-<?php
-switch ($role) {
-    case 'admin':
-        include '../app/components/adminSidebar.php';
-        break;
-    case 'driver':
-        include '../app/components/driverSidebar.php';
-        break;
-    case 'owner':
-        include '../app/components/ownerSidebar.php';
-        break;
-}
-?>
-
+<!-- include sidebar -->
+<?php include '../app/components/adminSidebar.php'; ?>
 
 
 <!-- include sidebar button -->
@@ -79,7 +77,7 @@ switch ($role) {
 <!-- edit start -->
 <section class="my-5 px-3 container-fluid">
     <h3 class="display-4">
-        Edit Driver
+        Edit Owner
     </h3>
 </section>
 <!-- edit end -->
@@ -141,7 +139,7 @@ switch ($role) {
                     </div>
 
                 </div>
-                <?php if ($role === "driver") { //payment info will not be shown for admin
+                <?php if ($role === "owner") { //payment info will not be shown for admin
                     // Display the accordion item for the driver role
                 ?>
                     <div class="accordion-item">
@@ -170,12 +168,12 @@ switch ($role) {
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                            Bookings
+                            Cars
                         </button>
                     </h2>
                     <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
                         <div class="accordion-body">
-                            <button type="button" class="btn btn-primary btn-circle"><i style="font-size: x-large;" class="bi bi-plus"></i></button>
+                            <button type="button" class="btn btn-primary btn-circle" data-bs-toggle="modal" data-bs-target="#userSearchModal"><i style="font-size: x-large;" class="bi bi-plus"></i></button>
 
                             <div class="card mx-auto mb-3" style="width: 80%; max-width: 540px;">
                                 <div class="row g-0">
@@ -184,9 +182,9 @@ switch ($role) {
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title">Number of Bookings</h5>
-                                            <p class="card-text"><small class="text-body-secondary"><?php echo $firstName . "has done 0 bookings " ?></small></p>
-                                            <a href="#" class="btn btn-outline-primary">View Bookings</a>
+                                            <h5 class="card-title">Number of Cars</h5>
+                                            <p class="card-text"><small class="text-body-secondary"><?php echo $firstName . "has 0 cars" ?></small></p>
+                                            <a href="cars.php" class="btn btn-outline-primary">View Cars</a>
                                         </div>
                                     </div>
                                 </div>
@@ -254,6 +252,36 @@ switch ($role) {
 
 
 </section>
+
+
+<!-- modal to fetch userId -->
+<!-- User Search Modal -->
+<div class="modal fade" id="userSearchModal" tabindex="-1" aria-labelledby="userSearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userSearchModalLabel">Confirm Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Search inputs -->
+                <form action="editOwner.php?id=<?php echo $user['user_id']; ?>" method="POST" id="userSearchForm">
+                    <div class="mb-3">
+                        <label for="email">Email: <?php echo $user['email']; ?></label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="firstName">First Name: <?php echo $user['first_name']; ?></label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="role">Role: <?php echo $user['role']; ?></label>
+                    </div>
+                    <button type="submit" name = 'adminSubmit' class="btn btn-primary" >Confirm details</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 

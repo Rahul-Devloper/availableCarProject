@@ -199,7 +199,7 @@ form .form-check-input:checked {
     z-index: 1; /* Stay on top */
     top: 0; /* Stay at the top */
     left: 0;
-    background-color: #6af2f0; 
+    background-color: #059dc0; 
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -211,7 +211,7 @@ form .form-check-input:checked {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #059dc0;
+    color: #8fdff1;
     display: block;
     transition: 0.3s;
   }
@@ -323,6 +323,16 @@ form .form-check-input:checked {
     font-size: 1.5rem !important;
 }
 /* Home Page end */
+
+/* cars page start */
+    .cars-listing{
+    background: #0dcaf0!important;
+    border-radius: 20px!important;
+    padding: 5px;
+    width: inherit!important;
+    color: white!important;
+    }
+/* cars page end */
 
 /* Footer start */
 
