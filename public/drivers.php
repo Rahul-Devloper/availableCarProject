@@ -5,9 +5,9 @@
 // Check if a search query is submitted
 if (isset($_GET['search'])) {
     $searchTerm = $_GET['search'];
-    $sql = "SELECT first_name, last_name, email, phone_number, created_at, user_id FROM users WHERE role = 'driver' AND first_name LIKE '%$searchTerm%'";
+    $sql = "SELECT first_name, last_name, email, phone_number, created_at, user_id, user_image_name FROM users WHERE role = 'driver' AND first_name LIKE '%$searchTerm%'";
 } else {
-    $sql = "SELECT first_name, last_name, email, phone_number, created_at, user_id FROM users WHERE role = 'driver'";
+    $sql = "SELECT first_name, last_name, email, phone_number, created_at, user_id, user_image_name FROM users WHERE role = 'driver'";
 }
 $result = $conn->query($sql);
 
@@ -22,7 +22,8 @@ while ($row = $result->fetch_assoc()) {
         'email' => $row['email'],
         'phone_number' => $row['phone_number'],
         'created_at' => $row['created_at'],
-        'user_id' => $row['user_id']
+        'user_id' => $row['user_id'],
+        'user_image_name' => $row['user_image_name'],
     ];
 }
 
@@ -54,7 +55,9 @@ $conn->close();
 <form action="" method="GET">
     <label for="search">Search by First Name:</label>
     <input type="text" name="search" id="search" value="<?php echo isset($_GET['search']) ? $_GET['search'] : ''; ?>">
-    <button type="submit">Search</button>
+    <span class="btn-modification">
+        <button class="btn btn-rounded" type="submit">Search</button>
+    </span>
 </form>
 
 <?php
@@ -65,13 +68,19 @@ if ($driverArray == []) {
     echo '<div class="row row-cols-1 row-cols-md-3 g-4">';
 
     foreach ($driverArray as $driver) {
+        $userImage = $driver['user_image_name'];
+        $imagePath = "../public/assets/img/profileUploads/$userImage";
         echo '<div class="col">';
 
 
         echo '<div class="card mb-3" style="max-width: 540px;">';
         echo '  <div class="row g-0">';
         echo '    <div class="col-md-4 d-flex align-items-center justify-content-center" style="background: #f4efef;">';
-        echo '      <img src="../public/assets/img/profile.png" class="img-fluid rounded" alt="profile-image">';
+        if (file_exists($imagePath) && $userImage) {
+            echo '      <img src="../public/assets/img/profileUploads/' . htmlspecialchars($userImage) . '" class="img-fluid rounded" alt="profile-image">';
+        } else {
+            echo '      <img src="../public/assets/img/profile.png" class="img-fluid rounded" alt="default-profile-image">';
+        }
         echo '    </div>';
         echo '    <div class="col-md-8">';
         echo '      <div class="card-body">';
@@ -80,9 +89,11 @@ if ($driverArray == []) {
         echo '        <h5 class="card-title">Email: ' . htmlspecialchars($driver['email']) . '</h5>';
         echo '        <p class="card-text"><small class="text-body-secondary">Joined on: ' . htmlspecialchars($driver['created_at']) . '</small></p>';
         echo '      </div>';
-        echo ' <a href="editDriver.php?id=' . $driver['user_id'] . '" class="btn btn-primary my-3 mx-auto">Edit</a>';
-        echo ' <a href="deleteDriver.php?id=' . $driver['user_id'] . '" class="btn btn-danger my-3 mx-auto">Delete</a>';
+        echo '<div class="d-flex justify-content-center">';
+        echo ' <a href="editDriver.php?id=' . $driver['user_id'] . '" class="btn btn-rounded btn-primary my-3" style="margin-right: 10px; width: 30%;">Edit</a>';
+        echo ' <a href="deleteDriver.php?id=' . $driver['user_id'] . '" class="btn btn-rounded btn-danger my-3" style="width: 30%;">Delete</a>';
         echo '    </div>';
+        echo '  </div>';
         echo '  </div>';
         echo '</div>';
 

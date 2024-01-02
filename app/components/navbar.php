@@ -13,7 +13,6 @@ if (isset($_SESSION['email']) && isset($_SESSION['firstName']) && isset($_SESSIO
 else if($sessionLogin == NULL || $sessionLogin == false) {
   
 }
-echo $firstName;
 
 // finding the current page
 $currentPage = basename($_SERVER['PHP_SELF']);
@@ -23,25 +22,30 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 // navLink Items
 $navLinkItems = [
   'Home' => 'index.php',
-  'About' => 'about.php',
+  'About' => 'aboutUs.php',
   'Services' => 'services.php',
   'Contact' => 'contact.php',
 ];
 
-if( isset($_SESSION) && isset($_SESSION['role']) && $_SESSION['role'] == 'owner' || $_SESSION['role'] == 'admin') {
-  $navLinkItems = array_merge($navLinkItems, [
-    'Find Cars' => 'findCars.php',
-  ]);
-} else if( isset($_SESSION['role']) && $_SESSION['role'] == 'driver') {
-  $navLinkItems = array_merge($navLinkItems, [
-    'Find Cars' => 'findCars.php',
-  ]);
-}?>
+if($_SESSION != NULL) {
+ if( isset($_SESSION['role']) && $_SESSION['role'] == 'driver') {
+    $navLinkItems = array_merge($navLinkItems, [
+      'Find Cars' => 'findCars.php',
+    ]);
+  } else if( isset($_SESSION['role']) && $_SESSION['role'] == 'owner') {
+    $navLinkItems = array_merge($navLinkItems, [
+      'Add Car' => 'addCar.php',
+    ]);
+  }
+}
+?>
 
 
 <nav class="navbar navbar-expand-lg justify-content-center nav-bg">
   <div class="container-fluid">
-    <a class="navbar-brand text-overline" style="text-decoration: overline; font-weight: bold; font-size: 2rem;color: #059DC0;" href="#">AC.</a>
+    <a class="navbar-brand text-overline" style="text-decoration: overline; font-weight: bold; font-size: 2rem;color: #059DC0;" href="index.php">
+    <img src="../public/assets/img/car_haven_logo.png" alt="logo" width="100" height="75">
+  </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

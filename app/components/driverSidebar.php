@@ -7,7 +7,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 $navLinkItems = [
   'Profile' => 'driverProfile.php',
   'Dashboard' => 'driverDashboard.php',
-  'Search Cars' => 'searchCars.php',
+  'Search Cars' => 'findCars.php',
+  'Bookings' => 'bookings.php',
+  'Feedback' => 'driverFeedback.php',
 ];
 ?>
 

@@ -1,25 +1,6 @@
 <?php
-// comment php
-
-
-// $page = $_GET['page'] ?? 'index';
-// print_r($_GET);
-// $todoController = new TodoController();
-
-// if ($page === 'add') {
-//     $todo = $_POST['todo'] ?? '';
-//     // $todoController->add($todo);
-// } elseif ($page === 'remove') {
-//     $index = $_GET['index'] ?? '';
-//     // $todoController->remove($index);
-// } 
-// elseif ($page === 'signUp') {
-//     // locate to sign up page
-//     header('Location: ../app/views/private/signUp.php');
-//     exit;
-// }elseif ($page === 'style') {
-//     include_once('..\public\css\style.css');
-// }
+include '../app/config/connection.php';
+session_start();
 
 ?>
 
@@ -28,6 +9,21 @@
 <?php include '../app/components/header.php'; ?>
 <!-- navbar -->
 <?php include '../app/components/navbar.php'; ?>
+
+<!-- sidebar -->
+<?php 
+if (isset($_SESSION['role']) && $_SESSION['role'] == 'driver') {
+    include '../app/components/driverSidebar.php';
+    include '../app/components/sidebarButton.php';
+}  else if(isset($_SESSION['role']) && $_SESSION['role'] == 'admin') {
+    include '../app/components/adminSidebar.php';
+    include '../app/components/sidebarButton.php';
+} else if(isset($_SESSION['role']) && $_SESSION['role'] == 'owner') {
+    include '../app/components/ownerSidebar.php';
+    include '../app/components/sidebarButton.php';
+}
+
+?>
 <!-- Carousel start -->
 <section>
     <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
@@ -57,7 +53,49 @@
 <section class="my-5 px-3 container">
     <div class="row">
         <div class="col-lg-6">
-            <?php include '../app/components/findCarsForm.php'; ?>
+            <!-- find cars form -->
+            <form method="post" action="findCars.php#carResults" class="box-design" onsubmit="return validateForm()">
+                <div class="form-group row mb-3">
+                    <label for="location" class="col-sm-2 col-form-label">Location</label>
+                    <div class="col-sm-10">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Enter Postal Code" value="<?php echo isset($_POST['location']) ? $_POST['location'] : ''; ?>" required>
+                            <div class="input-group-append">
+                                <i class='bx bx-current-location' style="font-size: xx-large; padding: 5px; background: black; color: white" onclick="getCurrentLocation()"></i>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="form-group row">
+                    <label for="date1" class="col-sm-2 col-form-label">Date and Time</label>
+                    <div class="col-sm-4">
+                        <input type="date" name="startDate" class="form-control" id="date1" value="<?php echo isset($_POST['startDate']) ? $_POST['startDate'] : ''; ?>" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="time" name="startTime" class="form-control" id="time1" value="<?php echo isset($_POST['startTime']) ? $_POST['startTime'] : ''; ?>" required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="date2" class="col-sm-2 col-form-label">Date and Time</label>
+                    <div class="col-sm-4">
+                        <input type="date" name="endDate" class="form-control" id="date2" value="<?php echo isset($_POST['endDate']) ? $_POST['endDate'] : ''; ?>" required>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="time" name="endTime" class="form-control" id="time2" value="<?php echo isset($_POST['endTime']) ? $_POST['endTime'] : ''; ?>" required>
+                    </div>
+                </div>
+                <div id="locationFormError" class="text-center ">
+                    <!-- filled by javascript validation -->
+                </div>
+
+                <!-- Submit button to add a car -->
+                <div class="col-12 btn-modification">
+                    <button type="submit" name="find_car" class="btn btn-rounded">Find Car</button>
+                </div>
+            </form>
+            <!-- find cars form end -->
         </div>
         <div class="col-lg-6">
             <h6 class="display-5 text-center">
@@ -105,7 +143,7 @@
     </div>
 </section>
 <!-- Why us Section end -->
-<section class="my-5 px-3 container" data-aos="fade-left">
+<section class="mt-5 px-3 container" data-aos="fade-left">
     <div class="row d-flex align-items-center">
         <h6 class="display-5 text-center">
             What you Experience as Rider!!!
@@ -123,8 +161,8 @@
             </p>
             <br>
             <span class="btn-modification text-center mt-4">
-            <button type="submit" class="btn btn-rounded"> Find Cars</button>
-        </span>
+                <a href="findCars.php" class="btn btn-rounded">Find Cars</a>
+            </span>
         </div>
         <div class="col-lg-6">
             <img class="img-fluid" src="../public/assets/img/rider.png" alt="rider">
@@ -151,17 +189,17 @@
             </p>
             <br>
             <span class="btn-modification text-center mt-4">
-            <button type="submit" class="btn btn-rounded">List Your Car</button>
-        </span>
+                <a href="addCar.php" class="btn btn-rounded">List you car</a>
+            </span>
         </div>
-        
+
     </div>
 
 </section>
 <!--  -->
 
 <!-- testimonials start -->
-<section class="my-5 p-3 container">
+<!-- <section class="my-5 p-3 container">
     <div class="container">
         <h5 class="display-5 text-center">Check Out Some Of our Client Testimonials</h5>
         <div id="carouselExampleFade" class="carousel slide carousel-fade mt-4">
@@ -220,24 +258,14 @@
                     </div>
                 </div>
             </div>
-            <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true">
-                    right
-                </span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button> -->
         </div>
     </div>
-</section>
+</section> -->
 <!-- testimonials end -->
 
 <!-- register start -->
 
-<section class="mt-5 px-3 container">
+<section class=" px-3 container">
     <div class="row">
         <div class="col-lg-6">
             <img class="img-fluid" src="../public/assets/img/carOwner.png" alt="carOwner">
@@ -247,8 +275,8 @@
                 Rev up your ride and unlock the road to extra cash! If you've got a set of wheels, why not flip the script and go from car owner to cash flow connoisseur? Join our driver community today and turn your car into a cash-making superstar. Your ride, your rules, your side hustle – it's time to hit the road and earn while you cruise!
             </p>
             <span class="btn-modification text-center mt-4">
-            <button type="submit" class="btn btn-rounded">Register Today</button>
-        </span>
+                <a href="signUp.php" class="btn  btn-rounded">Register Today</a>
+            </span>
         </div>
 </section>
 <!-- register end -->

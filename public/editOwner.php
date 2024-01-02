@@ -9,15 +9,20 @@ $role = $_SESSION['role'];
 
 <!-- check if adminSubmit is clicked -->
 <?php
-if (isset($_POST['adminSubmit'])) {
-//    store adminSelectedUserId in Session
+if (isset($_POST['adminSubmit']) || isset($_POST['adminSubmitCars'])) {
+    //    store adminSelectedUserId in Session
     $_SESSION['adminSelectedUserId'] = intval($_GET['id']);
 
-//    stop session
+    //    stop session
     session_write_close();
 
-    header("Location: addCar.php");
-}?>
+    if(isset($_POST['adminSubmit'])){
+        header("Location: addCar.php");
+    }
+    else {
+        header("Location: cars.php");
+    }
+} ?>
 
 <!-- check if update button is clicked -->
 <?php
@@ -32,9 +37,13 @@ if (isset($_POST['update'])) {
     $sql = "UPDATE users SET first_name = '$first_name', last_name = '$last_name', email = '$email', phone_number = '$phone_number', postal_code = '$postal_code' WHERE user_id = $userId";
     $result = $conn->query($sql);
     if ($result) {
-        echo "User updated successfully";
+        // echo "User updated successfully";
+        // display success message
+        echo '<script>alert("User updated successfully");</script>';
     } else {
-        echo "Error updating user: " . $conn->error;
+        // echo "Error updating user: " . $conn->error;
+        // display error message
+        echo '<script>alert("Error updating user: ' . $conn->error . '");</script>';
     }
 }
 ?>
@@ -51,11 +60,16 @@ if (isset($_GET['id'])) {
     // Check if a user with the specified ID exists
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
+
+        $totalCarsSql = "SELECT * FROM cars WHERE user_id = $userId";
+        $totalCarsResult = $conn->query($totalCarsSql);
     } else {
-        echo 'User not found.';
+        // echo 'User not found.';
+        echo '<script>alert("User not found.");</script>';
     }
 } else {
-    echo 'Invalid request. User ID not provided.';
+    // echo 'Invalid request. User ID not provided.';
+    echo '<script>alert("Invalid request. User ID not provided.");</script>';
 }
 
 // Close the MySQL connection
@@ -116,7 +130,7 @@ $conn->close();
                                         </div>
                                         <div class="col-6">
                                             <div class="p-3">Email:
-                                                <input type="text" class="form-control" name="email" value="<?php echo $user['email']; ?>">
+                                                <input type="text" class="form-control" name="email" readonly value="<?php echo $user['email']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -183,30 +197,10 @@ $conn->close();
                                     <div class="col-md-8">
                                         <div class="card-body">
                                             <h5 class="card-title">Number of Cars</h5>
-                                            <p class="card-text"><small class="text-body-secondary"><?php echo $firstName . "has 0 cars" ?></small></p>
-                                            <a href="cars.php" class="btn btn-outline-primary">View Cars</a>
+                                            <p class="card-text"><small class="text-body-secondary"><?php echo $firstName . " has " . $totalCarsResult->num_rows . " cars" ?></small></p>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#userCarsModal">View Cars</button>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                            License Details
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
-                        <div class="accordion-body">
-                            <div class="card text-center mb-3 mx-auto" style="width: 80%;">
-                                <div class="card-body">
-                                    <h5 class="card-title">Name: </h5>
-                                    <p class="card-text">License Number:</p>
-                                    <p class="card-text">Expiry Date:</p>
-                                    <a href="#" class="btn btn-outline-primary">Update</a>
-                                    <a href="#" class="btn btn-outline-danger">Delete</a>
                                 </div>
                             </div>
                         </div>
@@ -228,7 +222,18 @@ $conn->close();
         </div>
         <div class="col-lg-4">
             <div>
-                <img src="../public/assets/img/profile.png" alt="profile picture" class="img-fluid centered-img">
+                <?php
+                $userImage = $user['user_image_name'];
+                $imagePath = "../public/assets/img/profileUploads/$userImage";
+
+                if (file_exists($imagePath) && $userImage) {
+                    // If user image exists, show it
+                    echo "<img src=\"$imagePath\" alt=\"profile picture\" class=\"img-fluid centered-img\">";
+                } else {
+                    // If user image doesn't exist, show a default image
+                    echo "<img src=\"../public/assets/img/profile.png\" alt=\"default profile picture\" class=\"img-fluid centered-img\">";
+                }
+                ?>
             </div>
 
             <hr class="w-50 mx-auto">
@@ -240,9 +245,6 @@ $conn->close();
                     <p class="text-left">Email <br><?php echo $user['email']; ?></p>
                 </div>
             </div>
-            <div class="col-12 btn-modification d-flex">
-                <button type="submit" class="btn btn-rounded mx-auto">Log out</button>
-            </div>
         </div>
 
         <!-- Accordian section end -->
@@ -253,9 +255,7 @@ $conn->close();
 
 </section>
 
-
-<!-- modal to fetch userId -->
-<!-- User Search Modal -->
+<!-- modals to confirm details -->
 <div class="modal fade" id="userSearchModal" tabindex="-1" aria-labelledby="userSearchModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -275,12 +275,41 @@ $conn->close();
                     <div class="mb-3">
                         <label for="role">Role: <?php echo $user['role']; ?></label>
                     </div>
-                    <button type="submit" name = 'adminSubmit' class="btn btn-primary" >Confirm details</button>
+                    <button type="submit" name='adminSubmit' class="btn btn-primary">Confirm details</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="userCarsModal" tabindex="-1" aria-labelledby="userCarsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userCarsModalLabel">Confirm Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Search inputs -->
+                <form action="editOwner.php?id=<?php echo $user['user_id']; ?>" method="POST" id="userSearchForm">
+                    <div class="mb-3">
+                        <label for="email">Email: <?php echo $user['email']; ?></label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="firstName">First Name: <?php echo $user['first_name']; ?></label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="role">Role: <?php echo $user['role']; ?></label>
+                    </div>
+                    <button type="submit" name='adminSubmitCars' class="btn btn-primary">Confirm details</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modals to confirm details end -->
 
 
 

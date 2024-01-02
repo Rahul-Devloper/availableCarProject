@@ -16,119 +16,121 @@ body {
     border-radius: 20px!important;
 } */
 
-html,body
-{
-    width: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden; 
-}
+html,
 body {
-    background-color: #f5f5f5!important;
-    font-family: Arial, sans-serif;
-    /* margin-top: 0px!important; */
-    /* margin-bottom: 0px!important; */
-    /* padding: 0; */
-    /* height: 100vh!important; */
-    /* overflow-x: hidden!important; */
-  }
-  .btn-rounded{
-    border-radius: 20px!important;
-} 
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #f5f5f5 !important;
+  font-family: Arial, sans-serif;
+}
+
+body #main {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;
+}
+.btn-rounded {
+  border-radius: 20px !important;
+}
 
 /* text, button and width properties start */
 
 /* text modification */
 
-.w-30{
-    width: 30%!important;
+.w-30 {
+  width: 30% !important;
 }
 
-.text-color{
-    color: #469fc0!important;
+.text-color {
+  color: #469fc0 !important;
 }
-
 
 /* btn modification */
 
-.btn-circle{
-    border-radius: 50%!important;
+.btn-circle {
+  border-radius: 50% !important;
 }
 
- .btn-modification .btn:hover {
-    /* background-color: #ff5a00!important;
+.btn-modification .btn:hover {
+  /* background-color: #ff5a00!important;
     border-color: #ff5a00!important;
     color: white!important; */
-    background-color: #059DC0!important;
-    border-color: #059DC0!important;
-    color: white!important;
+  background-color: #059dc0 !important;
+  border-color: #059dc0 !important;
+  color: white !important;
 }
 
-.btn-modification .btn{
-    /* border-color: #ff5a00!important;
+.btn-modification .btn {
+  /* border-color: #ff5a00!important;
     color: #ff5a00!important; */
-    border-color: #04d4f0!important;
-    color: #059DC0!important;
-    background: white;
+  border-color: #04d4f0 !important;
+  color: #059dc0 !important;
+  background: white;
 }
 
 /* text, button and width properties end */
 
 /* navbar */
-.nav-bg{
-    /* background: linear-gradient(to right, #f12711, #f5af19); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    /* background: #04ECF0; */
-    background-color: white;
-    box-shadow: 1px 1px 20px 0px #6af2f0!important;
-
+.nav-bg {
+  /* background: linear-gradient(to right, #f12711, #f5af19); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background: #04ECF0; */
+  background-color: white;
+  box-shadow: 1px 1px 20px 0px #6af2f0 !important;
 }
 
-.navbar-nav , .navbar-nav .nav-link.show {
-    /* color: var(--bs-navbar-active-color); */
-    color: #059DC0!important;
-    background: white!important;
-    border-radius: 10px !important;
+.navbar-nav,
+.navbar-nav .nav-link.show {
+  /* color: var(--bs-navbar-active-color); */
+  color: #059dc0 !important;
+  background: white !important;
+  border-radius: 10px !important;
 }
 
-.nav-link.active{
-    background-color: #059DC0!important;
-    border-radius: 10px !important;
-    color: white!important;
+.nav-link.active {
+  background-color: #059dc0 !important;
+  border-radius: 10px !important;
+  color: white !important;
 }
 
-.nav-link.active:hover{
-    color:white!important;
+.nav-link.active:hover {
+  color: white !important;
 }
-.nav-link:focus, .nav-link:hover {
-    color: #059DC0!important;
-    text-decoration: overline!important;
+.nav-link:focus,
+.nav-link:hover {
+  color: #059dc0 !important;
+  text-decoration: overline !important;
 }
 
 /* dropdown for navbar */
 
 .dropdown-menu-right {
-    right: 0;
-    left: auto;
-  }
+  right: 0;
+  left: auto;
+}
 
 /* radio button */
 form .form-check-input:checked {
-    background-color: #ff5a00!important;
-    border-color: #ff5a00!important;
+  background-color: #ff5a00 !important;
+  border-color: #ff5a00 !important;
 }
 
 /* flat-box-design */
 .flat-box-design {
-    border-radius: 0;
-    padding: 12px;
-    box-shadow: 9px 8px 0px silver;
-    color: darkslategray;
-    margin-top: 1.2rem;
-    border: 1px #0dcaf0 solid;
-    border-radius: 0px;
-    background-color:#0dcaf0; 
-    margin-right: 1rem;
-    transition: all 0.7s ease-in-out
+  border-radius: 0;
+  padding: 12px;
+  box-shadow: 9px 8px 0px silver;
+  color: darkslategray;
+  margin-top: 1.2rem;
+  border: 1px #0dcaf0 solid;
+  border-radius: 0px;
+  background-color: #0dcaf0;
+  margin-right: 1rem;
+  transition: all 0.7s ease-in-out;
 }
 
 /* flat-box-design end */
@@ -136,258 +138,294 @@ form .form-check-input:checked {
 /* box-design */
 
 .box-design {
-    padding: 40px;
-    margin-top: 1.2rem;
-    /* border: 1px #ff5a00 solid; */
-    border: 1px #0dcaf0 solid;
-    border-radius: 20px;
-    /* box-shadow: 1px 1px 2px 1px chocolate; */
-    /* background-color: #f5f5f5; */
-    background-color:#0dcaf0; 
-    transition: all 0.7s ease-in-out;
-    color: #fff;
-
+  padding: 40px;
+  margin-top: 1.2rem;
+  /* border: 1px #ff5a00 solid; */
+  border: 1px #0dcaf0 solid;
+  border-radius: 20px;
+  /* box-shadow: 1px 1px 2px 1px chocolate; */
+  /* background-color: #f5f5f5; */
+  background-color: #0dcaf0;
+  transition: all 0.7s ease-in-out;
+  color: #fff;
 }
 
-.box-design:hover{
-    /* box-shadow: 2px 4px 6px 2px #ff5a00; */
-    box-shadow: 2px 4px 6px 2px #059DC0;
-    transition: all 0.3s ease-in-out;
+.box-design:hover {
+  /* box-shadow: 2px 4px 6px 2px #ff5a00; */
+  box-shadow: 2px 4px 6px 2px #059dc0;
+  transition: all 0.3s ease-in-out;
 }
 
-    footer {
-        /* background: linear-gradient(to right, #f12711, #f5af19); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        background: #04D4F0;
-        padding: 20px 0;
-    }
+footer {
+  background: #04d4f0;
+  padding: 20px 0;
+  margin-top: auto; /* This pushes the footer to the bottom */
+}
 
-    .footer-column {
-        color: #333; /* Text color for links */
-    }
+.footer-column {
+  color: #333; /* Text color for links */
+}
 
-    .footer-column h3 {
-        font-size: 18px;
-        margin-top: 0;
-    }
+.footer-column h3 {
+  font-size: 18px;
+  margin-top: 0;
+}
 
-    .footer-column ul {
-        list-style: none;
-        padding: 0;
-    }
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
 
-    .footer-column ul li {
-        margin-bottom: 10px;
-    }
+.footer-column ul li {
+  margin-bottom: 10px;
+}
 
-    .footer-column a {
-        color: #ff5a00; /* Link text color */
-        text-decoration: none;
-    }
+.footer-column a {
+  color: #ff5a00; /* Link text color */
+  text-decoration: none;
+}
 
-    .footer-column a:hover {
-        text-decoration: underline;
-    }
+.footer-column a:hover {
+  text-decoration: underline;
+}
 
-
-
-    /* ===================sidebar ================ */
-    /* The side navigation menu */
+/* ===================sidebar ================ */
+/* The side navigation menu */
 .sidenav {
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
-    left: 0;
-    background-color: #059dc0; 
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-    box-shadow: 1px 1px 20px 0px!important;
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #059dc0;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+  box-shadow: 1px 1px 20px 0px !important;
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #8fdff1;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.sidenav .active {
+  color: #f1f1f1;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left 0.5s;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
   }
-  
-  /* The navigation menu links */
   .sidenav a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #8fdff1;
-    display: block;
-    transition: 0.3s;
+    font-size: 18px;
   }
-  
-  /* When you mouse over the navigation links, change their color */
-  .sidenav a:hover {
-    color: #f1f1f1;
-  }
-  
-  /* Position and style the close button (top right corner) */
-  .sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-  }
+}
 
-  .sidenav .active{
-    color: #f1f1f1;
-  }
-  
-  /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-  #main {
-    transition: margin-left .5s;
-  }
-  
-  /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-  @media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-  }
-
-
-  /* profile section start*/
-.profile{
-    margin: 3rem!important;
-    background: white!important;
-    border: 1px #eae4e2 solid !important;
-    border-radius: 20px !important;
-    padding: 2rem;
+/* profile section start*/
+.profile {
+  margin: 3rem !important;
+  background: white !important;
+  border: 1px #eae4e2 solid !important;
+  border-radius: 20px !important;
+  padding: 2rem;
 }
 
 .centered-img {
-    display: block;
-    margin: 0 auto; /* Center horizontally */
-    max-width: 100%; /* Adjust the maximum width as needed */
-    max-height: 300px; /* Define the maximum height as needed */
-    height: auto;
-    width: 40%;
-    background: rgb(235, 221, 221);
-    margin-top: 2%;
-    margin-bottom: 2%;
-    border-radius: 20px;
+  display: block;
+  margin: 0 auto; /* Center horizontally */
+  max-width: 100%; /* Adjust the maximum width as needed */
+  max-height: 300px; /* Define the maximum height as needed */
+  height: auto;
+  width: 40%;
+  background: rgb(235, 221, 221);
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border-radius: 20px;
 }
 
 .text-right {
-    text-align: right!important;
+  text-align: right !important;
 }
 
 .text-left {
-    text-align: left!important;
+  text-align: left !important;
 }
 
-.accordion{
-    width: 100%!important;
+.accordion {
+  width: 100% !important;
 }
-  /* profile section end */
-
+/* profile section end */
 
 /* HOme Page start*/
 /* why us section/features section start */
 #features .features-box {
-    text-align: center;
-    border-top: 1px solid#F5F5F5;
-    border-bottom: 1px solid#F5F5F5;
-    padding: 0.5rem 0px;
-    background: rgb(255 251 251 / 49%);
-    transition: 0.3s;
+  text-align: center;
+  border-top: 1px solid#F5F5F5;
+  border-bottom: 1px solid#F5F5F5;
+  padding: 0.5rem 0px;
+  background: rgb(255 251 251 / 49%);
+  transition: 0.3s;
 }
 
 #features .features-box:hover {
-    background: #fff;
-    border-color: #eee;
-    border: 1px solid #fff;
-    color: #0dcaf0;
-    box-shadow: 2px 3px 4px 3px #0dcaf0;
+  background: #fff;
+  border-color: #eee;
+  border: 1px solid #fff;
+  color: #0dcaf0;
+  box-shadow: 2px 3px 4px 3px #0dcaf0;
 }
 /* why us section/features section end */
 
 /* testimonial section start*/
-.carousel-indicators{
-    background: #0dcaf0!important;
-    width: 75%!important;
-    margin-left: auto!important;
-    position: absolute!important;
-    margin-right: auto!important;
-    bottom: -10%!important;
-    top: 90%!important;
+.carousel-indicators {
+  background: #0dcaf0 !important;
+  width: 75% !important;
+  margin-left: auto !important;
+  position: absolute !important;
+  margin-right: auto !important;
+  bottom: -10% !important;
+  top: 90% !important;
 }
 /* testimonialial section end */
 
-
 /* font-design */
 .font-design {
-    font-style: italic!important;
-    font-weight: 500 !important;
-    font-family: cursive !important;
-    font-size: 1.5rem !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  font-family: cursive !important;
+  font-size: 1.5rem !important;
 }
 /* Home Page end */
 
 /* cars page start */
-    .cars-listing{
-    background: #0dcaf0!important;
-    border-radius: 20px!important;
-    padding: 5px;
-    width: inherit!important;
-    color: white!important;
-    }
+.cars-listing {
+  background: #0dcaf0 !important;
+  border-radius: 20px !important;
+  padding: 5px;
+  width: inherit !important;
+  color: white !important;
+}
 /* cars page end */
 
 /* Footer start */
 
 footer {
-    background-color: #0dcaf0; /* Background color for the footer */
-    color: #fff; /* Text color */
-    padding: 20px 0; /* Padding at the top and bottom */
+  background-color: #0dcaf0; /* Background color for the footer */
+  color: #fff; /* Text color */
+  padding: 20px 0; /* Padding at the top and bottom */
 }
 
 .footer-container {
-    text-align: center; /* Center the content */
+  text-align: center; /* Center the content */
 }
 
 .footer-logo {
-    text-decoration: underline; /* Underline the logo text */
-    font-weight: bold; /* Make it bold */
-    font-size: 2rem;
-    color: white;
+  text-decoration: underline; /* Underline the logo text */
+  font-weight: bold; /* Make it bold */
+  font-size: 2rem;
+  color: white;
 }
 
 .footer-column {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .footer-column ul {
-    list-style-type: none; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
 }
 
 .footer-column li {
-    margin-bottom: 10px; /* Add spacing between list items */
+  margin-bottom: 10px; /* Add spacing between list items */
 }
 
 .footer-column a {
-    color: #fff; /* Text color for links */
-    text-decoration: none; /* Remove underline from links */
+  color: #fff; /* Text color for links */
+  text-decoration: none; /* Remove underline from links */
 }
 /* Footer end */
-  
 
 /* SIgn up start */
-.alert-style{
-    background: white;
-    color: darkslategrey;
-    padding: 1rem;
-    border-radius: 5px;
+.alert-style {
+  background: white;
+  color: darkslategrey;
+  padding: 1rem;
+  border-radius: 5px;
 }
 
-form .red-text{
-    background: red;
-    border-radius: 3%;
-    padding: 5px;
-    margin-top: 7px;
+form .red-text {
+  background: red;
+  border-radius: 3%;
+  padding: 5px;
+  margin-top: 7px;
 }
 /* sign up end */
 
+/* view found cars start */
+.car-listing-view {
+  background: #0dcaf0;
+  padding: 4px;
+  text-align: center;
+  border-radius: 20px;
+  width: 50%;
+  display: inline-block;
+  box-shadow: 2px 2px 2px grey;
+  color: white;
+}
 
+::placeholder {
+  color: lightgray!important;
+  opacity: 1!important;
+  /* Firefox */
+}
+
+.rating-view{
+  background: #0dcaf0;
+  width: fit-content;
+  padding-right: 5%;
+  padding-left: 5%;
+  border-radius: 20px;
+  color: white;
+}
+/* view found cars end */
+
+/* arrow Icon */
+.arrowIcon {
+  position: absolute;
+  top: 11%;
+  z-index: 9999;
+  background: #0dcaf0;
+  border: 2px grey solid;
+  padding: 7px;
+  border-radius: -1px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}

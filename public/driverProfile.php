@@ -2,11 +2,11 @@
 <?php include '../app/config/connection.php' ?>
 
 <?php
-    session_start();
-    $role = $_SESSION['role'];
-    $email = $_SESSION['email'];
-    $firstName = $_SESSION['firstName'];
-    $userId = $_SESSION['userId'];
+session_start();
+$role = $_SESSION['role'];
+$email = $_SESSION['email'];
+$firstName = $_SESSION['firstName'];
+$userId = $_SESSION['userId'];
 ?>
 
 <!-- check if update button is clicked -->
@@ -22,9 +22,11 @@ if (isset($_POST['update']) && $userId) {
     $sql = "UPDATE users SET first_name = '$first_name', last_name = '$last_name', email = '$email', phone_number = '$phone_number', postal_code = '$postal_code' WHERE user_id = $userId";
     $result = $conn->query($sql);
     if ($result) {
-        echo "User updated successfully";
+        // echo "User updated successfully";
+        echo '<script>alert("User updated successfully");</script>';
     } else {
-        echo "Error updating user: " . $conn->error;
+        // echo "Error updating user: " . $conn->error;
+        echo '<script>alert("Error updating user: ' . $conn->error . '");</script>';
     }
 }
 ?>
@@ -46,11 +48,92 @@ if ($role && $email && $firstName) {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
     } else {
-        echo 'User not found.';
+        // echo 'User not found.';
+        echo '<script>alert("User not found.");</script>';
     }
 } else {
-    echo 'Invalid request. User ID not provided.';
+    // echo 'Invalid request. User ID not provided.';
+    echo '<script>alert("Invalid request. User ID not provided.");</script>';
 }
+
+// upload image
+if (isset($_FILES["user_image"]["name"]) && isset($_FILES["user_image"]["tmp_name"]) && $_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['user_image_update'])) {
+    // echo 'upload image';
+    $delteImageSql = "SELECT user_image_name FROM users WHERE user_id = $userId";
+    $result = $conn->query($delteImageSql);
+    $row = $result->fetch_assoc();
+    $oldImageName = $row['user_image_name'];
+
+
+    $target_dir = "assets/img/profileUploads/";
+    $user_image_name = $userId . "_" . basename($_FILES["user_image"]["name"]);
+    $target_file = $target_dir . $userId . "_" . basename($_FILES["user_image"]["name"]);
+    // echo $target_file;
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+    // Check if image file is a actual image or fake image
+
+    $check = getimagesize($_FILES["user_image"]["tmp_name"]);
+    if ($check !== false) {
+        // echo "File is an image - " . $check["mime"] . ".";
+        $uploadOk = 1;
+    } else {
+        // echo "File is not an image.";
+        // display an alert message
+        echo '<script>alert("File is not an image.");</script>';
+        $uploadOk = 0;
+    }
+
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        // echo "Sorry, file already exists.";
+        echo '<script>alert("Sorry, file already exists.");</script>';
+        $uploadOk = 0;
+    }
+
+    // Check file size
+    if ($_FILES["user_image"]["size"] > 50000000) {
+        // echo "Sorry, your file is too large.";
+        echo '<script>alert("Sorry, your file is too large.");</script>';
+        $uploadOk = 0;
+    }
+
+    // Allow certain file formats
+    if (
+        $imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif"
+    ) {
+        // echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        echo '<script>alert("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");</script>';
+        $uploadOk = 0;
+    }
+
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        // echo "Sorry, your file was not uploaded.";
+        echo '<script>alert("Sorry, your file was not uploaded.");</script>';
+        // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["user_image"]["tmp_name"], $target_file)) {
+            // echo "The file " . htmlspecialchars(basename($_FILES["user_image"]["name"])) . " has been uploaded.";
+            echo '<script>alert("The file ' . htmlspecialchars(basename($_FILES["user_image"]["name"])) . ' has been uploaded.");</script>';
+        } else {
+            // echo "Sorry, there was an error uploading your file.";
+            echo '<script>alert("Sorry, there was an error uploading your file.");</script>';
+        }
+    }
+
+    $sql = "UPDATE users SET user_image_name = '$user_image_name' WHERE user_id = $userId";
+    $result = $conn->query($sql);
+
+    // delete old image from directory
+    // if($oldImageName != null)unlink("assets/img/profileUploads/" . $oldImageName);
+
+    //refresh page after update
+    header("Location: ../public/driverProfile.php");
+}
+
 
 // Close the MySQL connection
 $conn->close();
@@ -103,7 +186,7 @@ include '../app/components/navbar.php'; ?>
                                         </div>
                                         <div class="col-6">
                                             <div class="p-3">Email:
-                                                <input type="text" class="form-control" name="email" value="<?php echo $user['email']; ?>">
+                                                <input type="text" class="form-control" name="email" readonly value="<?php echo $user['email']; ?>">
                                             </div>
                                         </div>
                                         <div class="col-6">
@@ -125,48 +208,7 @@ include '../app/components/navbar.php'; ?>
                         </form>
                     </div>
                 </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                            Payment Information
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
-                        <div class="accordion-body">
-                            <button type="button" class="btn btn-primary btn-circle"><i style="font-size: x-large;" class="bi bi-plus"></i></button>
-                            <div class="card text-center mb-3 mx-auto" style="width: 80%;">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card Name</h5>
-                                    <p class="card-text">Card Number</p>
-                                    <a href="#" class="btn btn-outline-primary">Update</a>
-                                    <a href="#" class="btn btn-outline-danger">Delete</a>
-                                </div>
-                            </div>
 
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                            License Details
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
-                        <div class="accordion-body">
-                            <div class="card text-center mb-3 mx-auto" style="width: 80%;">
-                                <div class="card-body">
-                                    <h5 class="card-title">Name: </h5>
-                                    <p class="card-text">License Number:</p>
-                                    <p class="card-text">Expiry Date:</p>
-                                    <a href="#" class="btn btn-outline-primary">Update</a>
-                                    <a href="#" class="btn btn-outline-danger">Delete</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
@@ -183,9 +225,24 @@ include '../app/components/navbar.php'; ?>
         </div>
         <div class="col-lg-4">
             <div>
-                <img src="../public/assets/img/profile.png" alt="profile picture" class="img-fluid centered-img">
-            </div>
+                <?php
+                $userImage = $user['user_image_name'];
+                $imagePath = "../public/assets/img/profileUploads/$userImage";
 
+                if (file_exists($imagePath) && $userImage) {
+                    // If user image exists, show it
+                    echo "<img src=\"$imagePath\" alt=\"profile picture\" class=\"img-fluid centered-img\">";
+                } else {
+                    // If user image doesn't exist, show a default image
+                    echo "<img src=\"../public/assets/img/profile.png\" alt=\"default profile picture\" class=\"img-fluid centered-img\">";
+                }
+                ?>
+            </div>
+            <div class="col-12 btn-modification d-flex mx-auto justify-content-center">
+                <button type="button" class="btn btn-rounded" data-bs-toggle="modal" data-bs-target="#imageModal">
+                    Upload Profile Picture
+                </button>
+            </div>
             <hr class="w-50 mx-auto">
             <div class="row">
                 <div class="col-md-6">
@@ -209,6 +266,27 @@ include '../app/components/navbar.php'; ?>
 </section>
 
 
+<!-- image upload modal -->
+<div class="modal fade" id="imageModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Update image</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="driverProfile.php" enctype="multipart/form-data" method="POST">
+                <div class="modal-body">
+                    <label for="image" class="form-label"> Upload Image</label>
+                    <input class="form-control" type="file" id="image" name="user_image">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" name="user_image_update" class="btn btn-primary">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 <!-- footer -->

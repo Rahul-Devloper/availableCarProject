@@ -58,10 +58,12 @@ if (array_filter($errors)) {
 
     $sql = "INSERT INTO users (first_name, last_name, email, password, phone_number, postal_code, role) VALUES ('$first_name', '$last_name', '$email', '$password', '$phone_number', '$postal_code', '$role')";
     if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
+        // echo "New record created successfully";
         header("Location: ../public/successfuleRegistration.php");
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        // echo "Error: " . $sql . "<br>" . $conn->error;
+        // display an alert message
+        echo '<script>alert("Error: ' . $conn->error . '")</script>';
     }
 }
 $conn->close();
@@ -82,8 +84,8 @@ $conn->close();
 <!-- form for registration for driver and owner -->
 <section class="my-5">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-6 mx-auto box-design" style="width: 40%;">
+        <div class="row d-flex justify-content-center align-items-center" style="flex-direction: column">
+            <div class="col-lg-6 mx-auto box-design shadow" style="width: 40%; border-radius: 0px;">
                 <p class="alert-style">
                     Note: <i class="bi bi-exclamation-triangle-fill"></i> Only One account can be used to register for driver or owner.
                 </p>

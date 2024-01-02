@@ -7,6 +7,8 @@
    unset($_SESSION["password"]);
    unset($_SESSION["firstName"]);
    unset($_SESSION["adminSelectedUserId"]);
+
+   session_destroy();
    
    header('Refresh: 2; URL = index.php');
 ?>
