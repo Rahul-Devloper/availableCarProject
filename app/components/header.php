@@ -8,7 +8,7 @@
 
     <!-- favicon -->
     <!-- <link rel="icon" type="image/x-icon" href="../../public/assets/img/favicon-32x32.png"> -->
-    <title>Available Car</title>
+    <title>Car Haven Hire</title>
 
      <!-- Include jQuery from a CDN -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
