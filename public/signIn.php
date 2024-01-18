@@ -26,7 +26,7 @@ if (isset($_POST['signIn'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM users WHERE email = '$email' AND password = '$password'";
+    $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         echo "Logged in successfully";
@@ -39,20 +39,29 @@ if (isset($_POST['signIn'])) {
         $_SESSION['firstName'] = $firstName;
         $_SESSION['userId'] = $userId;
 
+        $hashedPassword = $row['password'];
 
-        if ($role == 'owner') {
-            header("Location: ownerDashboard.php");
-            // echo 'owner';
-            exit();
-        } elseif ($role == 'driver') {
-            header("Location: driverDashboard.php");
-            // echo 'driver';
-            exit();
-        } elseif ($role == 'admin') {
-            header("Location: adminDashboard.php");
-            // echo 'driver';
-            exit();
-        }
+        // Verify the entered password with the hashed password
+        if (password_verify($password, $hashedPassword)) {
+            if ($role == 'owner') {
+                header("Location: ownerDashboard.php");
+                // echo 'owner';
+                exit();
+            } elseif ($role == 'driver') {
+                header("Location: driverDashboard.php");
+                // echo 'driver';
+                exit();
+            } elseif ($role == 'admin') {
+                header("Location: adminDashboard.php");
+                // echo 'driver';
+                exit();
+            }
+        }   else{
+            $validLogin = false;
+            echo "Invalid username or password";
+        }        
+
+        
     } else {
         $validLogin = false;
         echo "Invalid username or password";
@@ -111,3 +120,4 @@ include '../app/components/navbar.php';
 <?php
 include '../app/components/footer.php';
 ?>
+
