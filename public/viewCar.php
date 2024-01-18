@@ -203,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
                             <button type="submit" name="car_book" class="btn btn-rounded"></button>
                         </div> -->
                         <!-- Add the PayPal Button Container -->
-                        <?php echo isset($_SESSION['userId']) ? '<div id="paypal-button-container"></div>' : '<a href = "signIn.php" class = "btn btn-rounded">Please log in to complete booking</a>' ; ?>
+                        <?php echo isset($_SESSION['userId']) ? '<div style="display: flex:  !important; justify-content: center !important; text-align: center !important; margin-top: 20px !important;margin-left: 15% !important;margin-right: 15% !important;" id="paypal-button-container"></div>' : '<a href = "signIn.php" class = "btn btn-rounded">Please log in to complete booking</a>' ; ?>
                     </form>
                 </div>
             </div>
@@ -235,8 +235,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
 
 <script src="https://www.paypal.com/sdk/js?client-id=AV6wrYbSjSe3HF8xSYo1Ejsmj-M-z8AiozJA31piu1Xs-cNHz0-26XxwTdV4eDS5HxnSU3WKshPG4jnU&currency=GBP"></script>
 
-<!-- Include Your Custom JavaScript Code -->
-<script>
+<script>    
+
+
     paypal.Buttons({
         createOrder: function(data, actions) {
             // Set up the transaction

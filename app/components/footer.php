@@ -143,25 +143,20 @@
     }
 
     function getPostalCodeFromCoordinates(latitude, longitude) {
-        // Your Google Maps Geocoding API key
+        //  Geocoding API key
         var apiKey = 'AIzaSyCiIKcQ1Gdk6vO8ARVez1nOlXuMhXI2Mcw';
 
-        // Google Maps Geocoding API endpoint
         var geocodingApiEndpoint = 'https://maps.googleapis.com/maps/api/geocode/json';
 
-        // Construct the API request URL
         var apiUrl = `${geocodingApiEndpoint}?latlng=${latitude},${longitude}&key=${apiKey}`;
 
         // Make an AJAX request to the API
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
-                // Check if the API request was successful
                 if (data.status === 'OK') {
-                    // Extract the postal code from the API response
                     var postalCode = findPostalCode(data.results);
                     if (postalCode) {
-                        // Update the location input field with the obtained postal code
                         document.getElementById('location').value = postalCode;
                     } else {
                         console.error('Postal code not found in the API response.');
@@ -175,7 +170,6 @@
             });
     }
 
-    // Function to find the postal code in the API response
     function findPostalCode(results) {
         for (var i = 0; i < results.length; i++) {
             var addressComponents = results[i].address_components;

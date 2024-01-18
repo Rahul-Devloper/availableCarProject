@@ -29,7 +29,7 @@ $userId = $_SESSION['userId'];
 $sql = "SELECT MONTH(booked_at) AS month, COUNT(*) AS bookingCount
         FROM bookings
         WHERE user_id = $userId
-        AND YEAR(booked_at) = 2023
+        AND YEAR(booked_at) = YEAR(CURDATE())
         GROUP BY MONTH(booked_at)
         ORDER BY MONTH(booked_at)";
 
@@ -124,7 +124,7 @@ $totalBookings = $rowAmountAndBookings['totalBookings'];
         <div class="col-lg-6 mb-4">
             <div class="card bookingsTime" style="width: 75%;">
                 <div class="card-body">
-                    <h5 class="card-title">Total Bookings Over Time</h5>
+                    <h5 class="card-title">Total Bookings Over Time (current year)</h5>
                     <canvas id="totalBookingsChart"></canvas>
                 </div>
             </div>
@@ -139,6 +139,7 @@ $totalBookings = $rowAmountAndBookings['totalBookings'];
     var ctx = document.getElementById('totalBookingsChart').getContext('2d');
 
     var data = <?php echo json_encode($data); ?>;
+    console.log('data=>', data);
     var labels = <?php echo json_encode($labels); ?>;
 
     var bookingChart;
@@ -150,7 +151,7 @@ $totalBookings = $rowAmountAndBookings['totalBookings'];
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Number of Bookings',
+                    label: 'Number of Bookings(current year)',
                     data: data,
                     backgroundColor: [
                         'rgb(255, 99, 132, 0.5)',
@@ -186,7 +187,7 @@ $totalBookings = $rowAmountAndBookings['totalBookings'];
         // For example, you can set a default color for the card
         var card = document.querySelector('.bookingsTime');
         card.style.backgroundColor = 'lightgray';
-        card.innerHTML = '<div class="card-body"><p class="card-text">No data available </br> Looks like you have no bookings </p></div>';
+        card.innerHTML = '<div class="card-body"><p class="card-text">No data available </br> Looks like you have no bookings this year!!</p></div>';
     }
 </script>
 <!-- footer -->

@@ -59,10 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if ($payloadEndTime >= $startTimestamp && $payloadEndTime <= $endTimestamp) {
                         array_push($matchedCarIds, $row['car_id']);
                     } else {
-                        // bootstrap toast with error message
-
-                        // echo 'no second match found';
-                        // display error message
+                        
                         echo '<script>alert("No second match found");</script>';
                     }
                     break;
@@ -77,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if ($payloadEndTime >= $startTimestamp && $payloadEndTime <= $endTimestamp) {
                     // echo "Match found for end time!";
-                    // Add additional logic if needed
+                    
                     break;
                 }
             }
@@ -87,7 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // echo '<script>alert("No availability for the specified date.");</script>';
         }
 
-        // Add other details
         // echo '<hr>';
     }
 

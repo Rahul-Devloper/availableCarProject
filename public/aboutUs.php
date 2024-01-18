@@ -10,7 +10,7 @@
 <section class="container my-5">
     <div>
         <h1 class="text-center">About Us</h1>
-        <p class="text-center" style="text-align: justify; text-justify: inter-word; font-size: larger">Welcome to Car Rental Hub, your go-to platform for hassle-free car rentals and a unique opportunity for car owners to earn passive income by sharing their vehicles.
+        <p class="text-center" style="text-align: justify; text-justify: inter-word; font-size: larger">Welcome to Car Haven Hire, your go-to platform for hassle-free car rentals and a unique opportunity for car owners to earn passive income by sharing their vehicles.
         </p>
 
         <div class="row d-flex justify-content-center align-items-center">
@@ -21,13 +21,13 @@
                 padding: 10px;
                 color: white;">
                 <h2 class="text-center">Our Mission</h2>
-                <p>At Car Rental Hub, our mission is to connect car owners with individuals in need of reliable transportation. We aim to provide a seamless and secure platform where car owners can monetize their idle vehicles, and drivers can easily find and book the perfect car for their needs.</p>
+                <p>At Car Haven Hire, our mission is to connect car owners with individuals in need of reliable transportation. We aim to provide a seamless and secure platform where car owners can monetize their idle vehicles, and drivers can easily find and book the perfect car for their needs.</p>
             </div>
         </div>
 
 
         <div class="my-5" data-aos="fade-up">
-            <h2 class="text-center">Why Choose Car Rental Hub?</h2>
+            <h2 class="text-center">Why Choose Car Haven Hire?</h2>
             <ul style="list-style-type: none;">
                 <li class="mt-3"><strong class="rating-view mb-4 text-center" style="display: list-item; width: fit-content; margin-left:auto;margin-right:auto">Empowering Car Owners</strong> Join our community of car owners and turn your idle vehicle into a source of income. List your car with hourly rates, set your own terms, and earn money effortlessly.</li>
                 <li class="mt-3"><strong class="rating-view mb-4" style="display: list-item; width: fit-content; margin-left:auto;margin-right:auto">Effortless Booking</strong> As a driver, experience the convenience of finding and booking a car that suits your preferences. Simply fill out the form with your location, dates, and times to discover available cars in your area.</li>
@@ -39,9 +39,9 @@
 
 
         <h2 class="text-center">Contact Us</h2>
-        <p>Have questions or need assistance? Feel free to reach out to our dedicated support team. We're here to help you make the most of your car rental experience with Car Rental Hub.</p>
+        <p>Have questions or need assistance? Feel free to reach out to our dedicated support team. We're here to help you make the most of your car rental experience with Car Haven Hire.</p>
 
-        <p>Thank you for choosing Car Rental Hub, where car sharing meets convenience and earning potential. We look forward to connecting car owners and drivers for a mutually beneficial journey!</p>
+        <p>Thank you for choosing Car Haven Hire, where car sharing meets convenience and earning potential. We look forward to connecting car owners and drivers for a mutually beneficial journey!</p>
         <div class="text-center btn-modification">
             <a class="btn btn-rounded" href="contact.php">Contact Us</a>
         </div>

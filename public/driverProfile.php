@@ -217,7 +217,48 @@ include '../app/components/navbar.php'; ?>
                     </h2>
                     <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionParent">
                         <div class="accordion-body">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla, delectus natus! Natus quis modi ad fuga dicta neque corrupti eveniet minima deleniti perferendis molestias, porro tempore cumque impedit ratione accusamus, excepturi ipsa harum aut dolor, sit beatae atque provident. Nihil, repellendus fuga unde commodi doloremque ea saepe, repudiandae labore non nesciunt quis ratione nobis ex. Reprehenderit neque exercitationem possimus quae quo. Officiis similique amet, voluptatem ratione, quaerat voluptas placeat harum reprehenderit, et voluptates tempora consequatur asperiores! Animi ratione repudiandae neque consectetur omnis mollitia sit autem assumenda, optio veritatis, in nostrum adipisci velit officiis minima, eaque repellat est earum! Molestiae vero sequi consequuntur deleniti eos recusandae voluptas ut at ratione qui. Dolores perspiciatis facere dolorum magni eum voluptas inventore velit. Atque, fuga ab at rem natus nemo non ea dolores libero accusamus quasi corrupti cum veniam architecto labore error, earum rerum dolorum! Natus quidem, veniam harum commodi possimus eligendi quia hic ex dolorem! Accusantium dicta nesciunt quod, porro enim deserunt possimus facere ipsam, consequatur ipsum quasi tempore vero? Delectus, officia perferendis facere labore accusantium obcaecati. Quibusdam aperiam iure earum explicabo officiis nihil accusamus itaque culpa soluta, totam esse veritatis inventore tempore perferendis voluptatem reprehenderit natus similique quaerat obcaecati velit? Illo, atque.
+                            <h1>Privacy Policy for Drivers</h1>
+
+                            <p>This Privacy Policy is designed to help you understand how your personal information is collected, used, and safeguarded as a driver on our platform.</p>
+
+                            <h2>Information We Collect</h2>
+
+                            <p>We collect the following information from drivers:</p>
+
+                            <ul>
+                                <li>Contact Information: including name, email, phone number, and postal code.</li>
+                                <li>Login Information: username and password.</li>
+                                <li>Vehicle Information: details about the vehicle you are listing, including make and model</li>
+                                <li>Location Data: information about your current location when using our services.</li>
+                            </ul>
+
+                            <h2>How We Use Your Information</h2>
+
+                            <p>We use the collected information to:</p>
+
+                            <ul>
+                                <li>Facilitate communication between drivers and users.</li>
+                                <li>Process bookings and payments.</li>
+                                <li>Provide customer support.</li>
+                                <li>Ensure the safety and security of our platform.</li>
+                            </ul>
+
+                            <h2>Information Sharing</h2>
+
+                            <p>We may share your information with:</p>
+
+                            <ul>
+                                <li>Users: for the purpose of completing bookings.</li>
+                                <li>Service Providers: to help us with platform operations and maintenance.</li>
+                                <li>Legal Authorities: to comply with legal obligations.</li>
+                            </ul>
+
+                            <!-- Add more sections as needed -->
+
+                            <h2>Contact Us</h2>
+
+                            <p>If you have any questions about this Privacy Policy, please contact us at support@carHavenHire.com.</p>
+
                         </div>
                     </div>
                 </div>

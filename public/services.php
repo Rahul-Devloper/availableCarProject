@@ -8,7 +8,7 @@
     <div>
         <div class="text-center" data-aos="fade-up">
             <h1>Our Services</h1>
-            <p>Car Rental Hub offers a range of services designed to provide a seamless and rewarding experience for both car owners and drivers. Explore our services below:</p>
+            <p>Car Haven Hire offers a range of services designed to provide a seamless and rewarding experience for both car owners and drivers. Explore our services below:</p>
         </div>
 
         <div class="row d-flex justify-content-center align-items-center mt-5">
